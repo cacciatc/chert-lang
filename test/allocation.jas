@@ -1,0 +1,9 @@
+; bytes
+
+; decimal
+byte 0
+byte 255
+byte 128
+
+; hex
+; octal
