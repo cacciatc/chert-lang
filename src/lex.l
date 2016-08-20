@@ -7,6 +7,8 @@
 
 %%
 
+module|end                      { } 
+
 [0-9]+                          { token.lval = atoi(yytext); return NUM; }
 
 "("                             { return LPAREN; }
