@@ -1,0 +1,7 @@
+language:
+  - c
+install:
+  - sudo apt-get update
+script:
+  - make build
+  - make -C test
