@@ -1,4 +1,7 @@
-build:
+bin:
+	mkdir bin
+
+build: bin
 	@$(MAKE) -C src --no-print-directory
 
 test:
