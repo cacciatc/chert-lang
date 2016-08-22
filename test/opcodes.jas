@@ -1,0 +1,19 @@
+; loading
+lda
+LDA
+
+ldx
+LDX
+
+ldy
+LDY
+
+; storing
+sta
+STA
+
+stx
+STX
+
+sty
+STY

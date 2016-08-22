@@ -15,9 +15,14 @@
 %type BYTE      { token_t }
 %type WORD      { token_t }
 %type SEMICOLON { token_t }
+%type NEWLINE   { token_t }
+%type OPCODE    { token_t }
+
 %type expr      { token_t }
 
-start ::= expr.
+start    ::= exprlist.
+exprlist ::= expr.
+exprlist ::= expr NEWLINE exprlist.
 
 /* arithmetic */
 //expr ::= expr MINUS expr.
@@ -25,8 +30,12 @@ start ::= expr.
 //expr ::= expr TIMES expr.
 //expr ::= expr DIVIDES expr.
 
+/* opcodes no args */
+expr ::= OPCODE(A). {
+    build_expr(A, NULL);
+}
+
 expr ::= BYTE NUM.
 expr ::= WORD NUM.
-expr ::= SEMICOLON.
 expr ::= LPAREN expr RPAREN.
 expr ::= .

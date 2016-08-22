@@ -10,3 +10,5 @@ typedef struct {
 token_t token;
 
 void compile(const char* fname);
+
+void build_expr(token_t token, token_t* args);
