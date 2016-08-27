@@ -15,10 +15,15 @@ BIN     (B|b)[0-1]+
 (?i:lda|ldx|ldy)                { return OPCODE; }
 (?i:sta|stx|sty)                { return OPCODE; }
 
+                                /* macros */
+(?i:mfor)                       { return MACRO; }
+
 DIGIT+                          { token.lval = atoi(yytext); return NUM; }
 
 "("                             { return LPAREN; }
 ")"                             { return RPAREN; }
+"{"                             { return LCURLY; }
+"}"                             { return RCURLY; }
 
 \n                              { return NEWLINE; }
 [ \t]+                          { /* eat whitespace */ }

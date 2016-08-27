@@ -16,6 +16,10 @@ void build_expr(token_t expr, token_t* args) {
     print_token(expr);
 }
 
+void macro(token_t expr, token_t* args) {
+    print_token(expr);
+}
+
 void compile(const char* fname) {
     /* open input file */
     yyin = fopen(fname, "r");

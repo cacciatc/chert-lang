@@ -17,7 +17,7 @@
 %type SEMICOLON { token_t }
 %type NEWLINE   { token_t }
 %type OPCODE    { token_t }
-
+%type MFOR      { token_t }
 %type expr      { token_t }
 
 start    ::= exprlist.
@@ -33,6 +33,11 @@ exprlist ::= expr NEWLINE exprlist.
 /* opcodes no args */
 expr ::= OPCODE(A). {
     build_expr(A, NULL);
+}
+
+/* macros no args */
+expr ::= MFOR(A). {
+    macro(A, NULL);
 }
 
 expr ::= BYTE NUM.
