@@ -1,4 +1,4 @@
 tests := $(wildcard *.jas)
 
-test : $(tests)
+test :
 	../bin/jasper $(tests)

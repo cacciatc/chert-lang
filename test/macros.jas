@@ -1,4 +1,4 @@
 ; mfor
-mfor(equal) do
-    lda #00
-end
+;mfor(equal) do
+;    lda #00
+;end

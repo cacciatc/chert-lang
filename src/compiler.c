@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "compiler.h"
+#include "parser.h"
 #include "parser.c"
 #include "scanner.h"
 
@@ -12,8 +13,22 @@ void print_token(token_t token) {
         token.lval, token.text, token.code);
 }
 
-void build_expr(token_t expr, token_t* args) {
-    print_token(expr);
+void lookup_opcode(int16_t code, opcode_t *op) {
+}
+
+void emit_opcode(opcode_t *op, token_t* args, uint8_t argc) {
+}
+
+void instruction(token_t instr, token_t* args, uint8_t argc) {
+    opcode_t op;
+print_token(instr);
+    /* lookup op */
+    lookup_opcode(instr.code, &op);
+
+    /* lookup symbols if needed */
+
+    /* emit */
+    emit_opcode(&op, args, argc);
 }
 
 void macro(token_t expr, token_t* args) {
@@ -39,6 +54,7 @@ void compile(const char* fname) {
         /* get next code */
         token.code  = yylex();
         token.text  = yytext;
+        token.lval  = next_token.lval;
 
         /* parse token */
         Parse(parser, token.code, token);

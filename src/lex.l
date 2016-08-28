@@ -6,19 +6,23 @@
 %option noyywrap
 
 DIGIT   [0-9]
-DECIMAL DIGIT+
-HEX     0(x|X)(DIGIT|A-F|a-f)+
-BIN     (B|b)[0-1]+
 %%
 
                                 /* opcodes */
-(?i:lda|ldx|ldy)                { return OPCODE; }
-(?i:sta|stx|sty)                { return OPCODE; }
+(?i:lda)                        { return INSTR; }
+(?i:ldx)                        { return INSTR; }
+(?i:ldy)                        { return INSTR; }
+
+(?i:sta)                        { return INSTR; }
+(?i:stx)                        { return INSTR; }
+(?i:sty)                        { return INSTR; }
 
                                 /* macros */
 (?i:mfor)                       { return MACRO; }
 
-DIGIT+                          { token.lval = atoi(yytext); return NUM; }
+{DIGIT}+                        { next_token.lval = atoi(yytext); return NUM; }
+("0x"|"0X"){DIGIT}+             { next_token.lval = strtol(yytext, NULL, 16); return NUM; }
+("b"|"B"){DIGIT}+               { next_token.lval = strtol(yytext, NULL, 2);  return NUM; }
 
 "("                             { return LPAREN; }
 ")"                             { return RPAREN; }
