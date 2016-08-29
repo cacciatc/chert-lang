@@ -3,6 +3,7 @@
     #include <assert.h>
     #include <stdint.h>
     #include "compiler.h"
+    #include "instructions.h"
 }
 
 %token_type { token_t }
@@ -20,19 +21,20 @@
 %type RCURLY    { token_t }
 %type LCURLY    { token_t }
 %type expr      { token_t }
+%type NUM       { token_t }
 
 start    ::= exprlist.
 exprlist ::= expr.
 exprlist ::= expr NEWLINE exprlist.
 
-/* instruction no args */
+/* instruction direct mode */
 expr ::= INSTR(A) NEWLINE. {
     instruction(A, NULL, 0);
 }
 
-/* instruction with args */
-expr ::= INSTR(A) NUM(B). {
-    instruction(A, &B, 1);
+/* instruction immediate mode */
+expr ::= INSTR(A) HASH NUM_8(B). {
+    instr_immediate(A, &B, 1);
 }
 
 /* macros no args */

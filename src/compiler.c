@@ -13,22 +13,8 @@ void print_token(token_t token) {
         token.lval, token.text, token.code);
 }
 
-void lookup_opcode(int16_t code, opcode_t *op) {
-}
-
-void emit_opcode(opcode_t *op, token_t* args, uint8_t argc) {
-}
-
 void instruction(token_t instr, token_t* args, uint8_t argc) {
-    opcode_t op;
 print_token(instr);
-    /* lookup op */
-    lookup_opcode(instr.code, &op);
-
-    /* lookup symbols if needed */
-
-    /* emit */
-    emit_opcode(&op, args, argc);
 }
 
 void macro(token_t expr, token_t* args) {

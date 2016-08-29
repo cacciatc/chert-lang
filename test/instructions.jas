@@ -1,19 +1,28 @@
 ; loading
-lda 1
-LDA 2
 
-ldx 0X03
-LDX 0x04
+; immediate value
+lda #1
+LDA #2
 
-ldy B00000001
-LDY b00000001
+ldx #0X03
+LDX #0x04
+
+ldy #B00000001
+LDY #b00000001
+
+; zero page
+; absolute
+; indirect indexed
+; indexed indirect
 
 ; storing
-sta 0
-STA 0
 
-stx 0X00
-STX 0x00
+; immediate
+sta #0
+STA #0
 
-sty B00000001
-STY b00000001
+stx #0X00
+STX #0x00
+
+sty #B00000001
+STY #b00000001
