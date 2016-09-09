@@ -15,4 +15,4 @@ typedef struct {
 typedef enum modes_t { DIRECT, IMMEDIATE, ZERO_PAGE } modes_t;
 
 /* Parses an instruction with immediate operands. */
-void instr_immediate(token_t token, token_t* args, uint8_t argc);
+void instr_immediate(token_t token, token_t arg);

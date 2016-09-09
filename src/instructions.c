@@ -20,12 +20,17 @@ opcode_t opcode_table[] = {
 char code[MAX_INSTR_SZ];
 
 /* Parses an instruction with immediate operands. */
-void instr_immediate(token_t token, token_t* args, uint8_t argc) {
+void instr_immediate(token_t token, token_t arg) {
     opcode_t op;
     
     op = opcode_table[token.lval];
+   
+    /* verify that this addressing mode is valid for opcode */
     
+ 
     /* only one arg for immediate */
-    sprintf(code, "%s #%hu\n", op.name, (args + 0)->lval);
+    sprintf(code, "%s #%hu\n", op.name, arg.lval);
+    
+    /* debug print for now */
     printf("%s", code); 
 }

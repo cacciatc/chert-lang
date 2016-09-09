@@ -2,10 +2,16 @@ CFLAGS = -Wall -std=c99
 CC     = clang
 
 
-jasper: main.o parser.o scanner.o compiler.o instructions.o
-	$(CC) -o ../bin/jasper main.o scanner.o compiler.o instructions.o
+jasper: main.o parser.o scanner.o compiler.o instructions.o keywords.o symtab.o
+	$(CC) -o ../bin/jasper main.o scanner.o compiler.o instructions.o keywords.o symtab.o
 
 main.o: main.c
+
+keywords.o: keywords.h keywords.c
+	$(CC) -c keywords.c -o keywords.o
+
+symtab.o: symtab.h symtab.c
+	$(CC) -c symtab.c -o symtab.o
 
 compiler.o: compiler.h compiler.c parser.h parser.c
 	$(CC) -c compiler.c -o compiler.o

@@ -4,7 +4,11 @@
     #include <stdint.h>
     #include "compiler.h"
     #include "instructions.h"
+    #include "keywords.h"
+    #include "symtab.h"
 }
+
+%extra_argument { symtab_t* symbols }
 
 %token_type { token_t }
 
@@ -20,21 +24,32 @@
 %type MACRO     { token_t }
 %type RCURLY    { token_t }
 %type LCURLY    { token_t }
-%type expr      { token_t }
 %type NUM       { token_t }
+%type SYMBOL    { token_t }
+%type KEYWORD   { token_t }
 
 start    ::= exprlist.
 exprlist ::= expr.
 exprlist ::= expr NEWLINE exprlist.
 
+/* keywords: define */
+expr ::= KEYWORD(A) SYMBOL(B). {
+    keyword(A, B, NULL, symbols);
+}
+
+/* keywords: define = expr */
+expr ::= KEYWORD(A) SYMBOL(B) ASSIGN NUM_8(C). {
+    keyword(A, B, &C, symbols);
+}
+
 /* instruction direct mode */
-expr ::= INSTR(A) NEWLINE. {
+expr ::= INSTR(A). {
     instruction(A, NULL, 0);
 }
 
 /* instruction immediate mode */
 expr ::= INSTR(A) HASH NUM_8(B). {
-    instr_immediate(A, &B, 1);
+    instr_immediate(A, B);
 }
 
 /* macros no args */
@@ -42,7 +57,5 @@ expr ::= INSTR(A) HASH NUM_8(B). {
     macro(A, NULL);
 }*/
 
-//expr ::= BYTE NUM.
-//expr ::= WORD NUM.
 expr ::= LPAREN expr RPAREN.
 expr ::= .

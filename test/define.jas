@@ -1,0 +1,6 @@
+define TEST
+DEFINE TEST
+define test
+DEFINE test
+
+define test_with_value = 1

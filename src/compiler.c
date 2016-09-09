@@ -7,6 +7,7 @@
 #include "parser.h"
 #include "parser.c"
 #include "scanner.h"
+#include "symtab.h"
 
 void print_token(token_t token) {
     printf("token: lval = %d, text = %s, code = %d\n", 
@@ -14,7 +15,7 @@ void print_token(token_t token) {
 }
 
 void instruction(token_t instr, token_t* args, uint8_t argc) {
-print_token(instr);
+    print_token(instr);
 }
 
 void macro(token_t expr, token_t* args) {
@@ -30,9 +31,13 @@ void compile(const char* fname) {
         exit(EXIT_FAILURE);
     }
 
-    token_t token;
-    void*   parser;
+    token_t   token;
+    void*     parser;
+    symtab_t* symbols;    
 
+    /* init symtab */
+    symbols = malloc(sizeof(symtab_t)); 
+    
     /* init parser */
     parser = ParseAlloc(malloc);
 
@@ -43,7 +48,7 @@ void compile(const char* fname) {
         token.lval  = next_token.lval;
 
         /* parse token */
-        Parse(parser, token.code, token);
+        Parse(parser, token.code, token, symbols);
     } while(token.code > 0);
 
     /* TODO: better scanner error output */
@@ -58,4 +63,17 @@ void compile(const char* fname) {
 
     /* cleanup parser */
     ParseFree(parser, free);
+
+    /* cleanup symtab */
+    symtab_entry_t* entry;
+    
+    /*entry = (symtab_entry_t*) symbols;
+    while(entry) {
+        symtab_entry_t* tmp_entry = entry->next;
+        free(entry);
+        
+        entry = tmp_entry;
+    }*/
+
+    free(symbols);
 }
