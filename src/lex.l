@@ -33,7 +33,7 @@ ALPHA     [A-Z]
                                 /* keywords */
 (?i:define)                     { next_token.lval = DEFINE; return KEYWORD; }
 
-                                /* symbol */
+                                      /* symbol */
 (?i:{ALPHA}+({ALPHA}|{DIGIT}|[_])*)   { return SYMBOL; }
 
 "("                             { return LPAREN; }

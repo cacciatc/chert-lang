@@ -1,9 +1,10 @@
 #pragma once
+#include <stdint.h>
 
 typedef struct {
     int16_t  code;
     uint16_t lval;
-    const char* text;
+    char* text;
 } token_t;
 
 

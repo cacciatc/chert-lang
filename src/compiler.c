@@ -8,6 +8,7 @@
 #include "parser.c"
 #include "scanner.h"
 #include "symtab.h"
+#include "scope.h"
 
 void print_token(token_t token) {
     printf("token: lval = %d, text = %s, code = %d\n", 
@@ -33,10 +34,10 @@ void compile(const char* fname) {
 
     token_t   token;
     void*     parser;
-    symtab_t* symbols;    
+    scope_t*  scope;
 
-    /* init symtab */
-    symbols = malloc(sizeof(symtab_t)); 
+    /* create global scope */
+    scope_create(&scope);    
     
     /* init parser */
     parser = ParseAlloc(malloc);
@@ -44,12 +45,15 @@ void compile(const char* fname) {
     do {
         /* get next code */
         token.code  = yylex();
-        token.text  = yytext;
+        token.text  = strdup(yytext);
         token.lval  = next_token.lval;
-
+        
         /* parse token */
-        Parse(parser, token.code, token, symbols);
+        Parse(parser, token.code, token, scope);
     } while(token.code > 0);
+    
+    /* free EOF token */
+    free(token.text);
 
     /* TODO: better scanner error output */
     if(token.code == -1) {
@@ -64,16 +68,6 @@ void compile(const char* fname) {
     /* cleanup parser */
     ParseFree(parser, free);
 
-    /* cleanup symtab */
-    symtab_entry_t* entry;
-    
-    /*entry = (symtab_entry_t*) symbols;
-    while(entry) {
-        symtab_entry_t* tmp_entry = entry->next;
-        free(entry);
-        
-        entry = tmp_entry;
-    }*/
-
-    free(symbols);
+    /* cleanup global scope */
+    scope_free(&scope);
 }

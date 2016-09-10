@@ -4,3 +4,5 @@ define test
 DEFINE test
 
 define test_with_value = 1
+define test_with_binary_value = b00000111
+DEFINE test_with_hex = 0xFF
