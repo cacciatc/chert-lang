@@ -1,4 +1,4 @@
-Jasper Lang
+Chert Lang
 -----------
 
 A little language for programming the NES.
