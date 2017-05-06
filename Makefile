@@ -4,7 +4,7 @@ build: bin bin/lemon
 bin/lemon:
 	clang src/lemon.c -o bin/lemon
 
-test:
+tests:
 	@$(MAKE) -C test --no-print-directory
 
 bin:

@@ -1,4 +1,4 @@
 tests := $(wildcard *.jas)
 
-test :
-	../bin/chert $(tests)
+test:
+	@$(foreach test,$(tests),../bin/chert $(test);)
