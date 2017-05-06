@@ -2,7 +2,7 @@ language:
   - c
 install:
   - sudo apt-get update
-	- sudo apt-get clang flex
+	- sudo apt-get install clang flex
 script:
   - make build
   - make -C test
