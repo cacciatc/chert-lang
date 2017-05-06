@@ -3,7 +3,7 @@ CC     = clang
 
 
 chert: main.o parser.o scanner.o compiler.o instructions.o keywords.o symtab.o scope.o tokens.o
-	$(CC) -o ../bin/chart main.o scanner.o compiler.o instructions.o keywords.o symtab.o scope.o tokens.o
+	$(CC) -o ../bin/chert main.o scanner.o compiler.o instructions.o keywords.o symtab.o scope.o tokens.o
 
 main.o: main.c
 
